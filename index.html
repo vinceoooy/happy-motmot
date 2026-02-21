@@ -1,27 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Monthsary 💗</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enter Call Sign</title>
+
+<style>
+  :root{
+    --pink: #FBE5E7;
+    --peach: #F8E3D7;
+    --blue: #C4D6EA;
+    --lav: #F1E6F2;
+    --accent: #FF4D6D;
+    --accent2: #ff6b81;
+    --text: #2f2f2f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:18px;
+
+    background: linear-gradient(135deg,var(--pink),var(--peach),var(--blue),var(--lav));
+    background-size:200% 200%;
+    animation:bg 10s ease infinite;
+  }
+
+  @keyframes bg{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  .box{
+    background: rgba(255,255,255,0.9);
+    padding: 28px 22px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    width: 100%;
+    max-width: 380px;
+  }
+
+  h2{
+    margin: 0 0 18px 0;
+    color: var(--accent);
+    font-size: 22px;
+    letter-spacing: 0.2px;
+  }
+
+  /* FIXED input alignment + consistent sizing */
+  input{
+    width: 100%;
+    height: 52px;
+    padding: 0 14px;
+    border-radius: 14px;
+    border: 2px solid rgba(0,0,0,0.12);
+    background: #fff;
+    font-size: 18px;
+    text-align: center;
+
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    line-height: 52px; /* helps vertical centering on some mobile browsers */
+  }
+
+  input:focus{
+    border-color: rgba(255,77,109,0.55);
+    box-shadow: 0 0 0 4px rgba(255,77,109,0.15);
+  }
+
+  button{
+    margin-top: 16px;
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg,var(--accent),var(--accent2));
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(255, 77, 109, 0.25);
+  }
+
+  button:active{
+    transform: scale(0.98);
+  }
+
+  #error{
+    margin-top: 12px;
+    min-height: 18px;
+    font-size: 14px;
+    color: #c2185b;
+  }
+
+  @media (max-width: 420px){
+    h2{ font-size: 20px; }
+    input{ font-size: 17px; }
+  }
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <div id="card" class="card fade">
+  <div class="box">
+    <h2>Enter call sign to view 😜</h2>
 
-      <h2 id="titleText" class="title">Happy Monthsary… or is it? 🤔</h2>
+    <!-- no placeholder -->
+    <input id="answer" type="text" autocapitalize="none" autocomplete="off" />
 
-      <div class="image-frame" id="imageFrame">
-        <img id="memoryImage" class="memory-img" src="" alt="memory" />
-      </div>
-
-      <p id="message"></p>
-    </div>
-
-    <button onclick="nextMessage()">Click me 💗</button>
+    <button onclick="check()">Unlock 💗</button>
+    <div id="error"></div>
   </div>
 
-  <script src="script.js"></script>
+<script>
+  function check(){
+    const value = document.getElementById("answer").value.toLowerCase().trim();
+
+    // accept anything that contains "bebu"
+    if (value.includes("bebu")) {
+      window.location.href = "memories.html";
+    } else {
+      document.getElementById("error").innerText = "unsamana oi gi tuyo jud niya oh 🥲";
+    }
+  }
+
+  // Enter key also submits
+  document.getElementById("answer").addEventListener("keydown", function(e){
+    if (e.key === "Enter") check();
+  });
+</script>
 </body>
 </html>

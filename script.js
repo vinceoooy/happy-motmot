@@ -9,26 +9,39 @@ const messages = [
   "Happy Mot Mot Bebu ❤️"
 ];
 
-// Random image pool: images/1.jpg ... images/18.jpg
-const imagePool = [];
-for (let i = 1; i <= 18; i++) {
-  imagePool.push(`images/${i}.jpg`);
-}
-
 let index = -1;
-let lastImage = "";
 let firstClick = true;
 
-// Random image, but don't repeat twice in a row
-function getRandomImage() {
-  let img;
-  do {
-    img = imagePool[Math.floor(Math.random() * imagePool.length)];
-  } while (img === lastImage && imagePool.length > 1);
+// ---------- IMAGE DECK SYSTEM ----------
 
-  lastImage = img;
-  return img;
+// create list images/1.jpg ... images/18.jpg
+const allImages = [];
+for (let i = 1; i <= 18; i++) {
+  allImages.push(`images/${i}.jpg`);
 }
+
+let imageQueue = [];
+
+// shuffle function (Fisher-Yates)
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// get next image without repeats
+function getNextImage() {
+  // refill & reshuffle when empty
+  if (imageQueue.length === 0) {
+    imageQueue = [...allImages];
+    shuffle(imageQueue);
+  }
+
+  return imageQueue.pop();
+}
+
+// ---------- MAIN FUNCTION ----------
 
 function nextMessage() {
   const card = document.getElementById("card");
@@ -37,28 +50,28 @@ function nextMessage() {
   const frame = document.getElementById("imageFrame");
   const title = document.getElementById("titleText");
 
-  // Hide the title only once (first click)
+  // hide title on first click
   if (firstClick && title) {
     title.classList.add("hide-title");
-    setTimeout(() => {
-      title.style.display = "none";
-    }, 400);
+    setTimeout(() => title.style.display = "none", 400);
     firstClick = false;
   }
 
-  // Fade out
+  // fade out
   card.classList.add("fade-out");
 
   setTimeout(() => {
-    // Advance message in order
+
+    // message order stays fixed
     index = (index + 1) % messages.length;
     msg.innerText = messages[index];
 
-    // Random image each click
-    img.src = getRandomImage();
+    // image never repeats until all shown
+    img.src = getNextImage();
     frame.style.display = "block";
 
-    // Fade in
+    // fade in
     card.classList.remove("fade-out");
+
   }, 400);
 }
