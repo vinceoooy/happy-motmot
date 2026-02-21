@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.container {
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* fade animation */
+.fade {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.memory-img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  display: none;
+}
+
+p {
+  font-size: 18px;
+  margin: 0;
+}
+
+button {
+  margin-top: 20px;
+  padding: 14px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background: #ff6b81;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:active {
+  transform: scale(0.96);
+}
