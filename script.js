@@ -4,6 +4,7 @@ const messages = [
   "the 14th oi!💍🏝️ just kidding, no pressure 😜",
   "the 19th? 😎 pero ga bulag man ta hahaha kadaghan bai dates!",
   "25? 📱 hahahaha TINDER!",
+  "7th wahahaha first date bani? 🍝🍲",
   "It’s the 22nd! HAPPY BIRTHDAY🎂 Hahahaa joke… but who cares? ❤️",
   "Anyways, Its never too early or too late to celebrate us! 💻--🌍--💻",
   "Happy Mot Mot Bebu ❤️"
@@ -12,18 +13,18 @@ const messages = [
 let index = -1;
 let firstClick = true;
 
-// ---- MEDIA DECK (1..43, with specific mp4 numbers) ----
-const videoNums = new Set([7, 9, 16, 24, 26, 36, 39, 43]);
-
-const allMedia = [];
-for (let i = 1; i <= 43; i++) {
-  const ext = videoNums.has(i) ? "mp4" : "jpg";
-  allMedia.push(`images/${i}.${ext}`);
+// ---------- BUILD PHOTO + VIDEO POOLS ----------
+const allPhotos = [];
+for (let i = 1; i <= 35; i++) {
+  allPhotos.push(`images/${i}.jpg`);
 }
 
-let mediaQueue = [];
+const allVideos = [];
+for (let i = 36; i <= 43; i++) {
+  allVideos.push(`images/${i}.mp4`);
+}
 
-// Fisher-Yates shuffle
+// ---------- SHUFFLE DECK HELPERS ----------
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -31,14 +32,27 @@ function shuffle(arr) {
   }
 }
 
-function getNextMedia() {
-  if (mediaQueue.length === 0) {
-    mediaQueue = [...allMedia];
-    shuffle(mediaQueue);
+// photo deck (no repeat until all shown)
+let photoQueue = [];
+function getNextPhoto() {
+  if (photoQueue.length === 0) {
+    photoQueue = [...allPhotos];
+    shuffle(photoQueue);
   }
-  return mediaQueue.pop();
+  return photoQueue.pop();
 }
 
+// video deck (no repeat until all played)
+let videoQueue = [];
+function getNextVideo() {
+  if (videoQueue.length === 0) {
+    videoQueue = [...allVideos];
+    shuffle(videoQueue);
+  }
+  return videoQueue.pop();
+}
+
+// ---------- MAIN ----------
 function nextMessage() {
   const card = document.getElementById("card");
   const msg = document.getElementById("message");
@@ -63,8 +77,6 @@ function nextMessage() {
     index = (index + 1) % messages.length;
     msg.innerText = messages[index];
 
-    // Next media (no repeats until all 43 shown)
-    const media = getNextMedia();
     frame.style.display = "block";
 
     // Reset displays
@@ -76,12 +88,17 @@ function nextMessage() {
     video.removeAttribute("src");
     video.load();
 
-    if (media.endsWith(".mp4")) {
-      video.src = media;
+    // FIRST message -> VIDEO
+    if (index === 0) {
+      const vid = getNextVideo();
+      video.src = vid;
       video.style.display = "block";
       video.play().catch(() => {});
-    } else {
-      img.src = media;
+    }
+    // All other messages -> PHOTO
+    else {
+      const pic = getNextPhoto();
+      img.src = pic;
       img.style.display = "block";
     }
 
