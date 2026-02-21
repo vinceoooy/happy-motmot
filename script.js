@@ -2,9 +2,9 @@
 const messages = [
   "Wait… karon ba? humana naman cguru? 🤔",
   "the 14th oi!💍🏝️ just kidding, no pressure 😜",
-  "the 19th? 😎 pero ga bulag man ta hahaha kadaghan bai dates!",
-  "25? 📱 hahahaha TINDER!",
-  "7th wahahaha first date bani? 🍝🍲",
+  "the 19th? 😎 pero ga bulag bulag man 💔 ta hahaha kadaghan bai dates!",
+  "25? 📱 hahahaha TINDER! guitarist yarn?",
+  "7th wahahaha first date ba or 8th or 9th 😂? 🍝🍲",
   "It’s the 22nd! HAPPY BIRTHDAY🎂 Hahahaa joke… but who cares? ❤️",
   "Anyways, Its never too early or too late to celebrate us! 💻--🌍--💻",
   "Happy Mot Mot Bebu ❤️"
